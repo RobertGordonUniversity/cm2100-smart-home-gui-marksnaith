@@ -10,6 +10,7 @@ import java.io.IOException;
 import static javafx.application.Application.launch;
 import uk.ac.rgu.cm2100.Home;
 import uk.ac.rgu.cm2100.devices.Light;
+import uk.ac.rgu.cm2100.devices.SmartPlug;
 import uk.ac.rgu.cm2100.gui.mvc.Controller;
 import uk.ac.rgu.cm2100.gui.mvc.Model;
 
@@ -24,11 +25,19 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         
         var home = new Home();
+        
+        /* Test code that adds some devices and commands to the smart home */
         var light = new Light("Living room");
+        var kettle = new SmartPlug("Kettle");
+        
         home.addDevice(light);
+        home.addDevice(kettle);
         
         home.addCommand("Turn on light", light::switchOn, light);
-        
+        home.addCommand("Turn off light", light::switchOff, light);
+        home.addCommand("Turn on kettle", kettle::switchOn, kettle);
+        home.addCommand("Turn off kettle", kettle::switchOff, kettle);
+        /* End test code */
         
         scene = new Scene(loadFXML("homescreen", home), 640, 480);
         scene.getStylesheets().add("styles/default.css"); //adds the default stylesheet to overcome character encoding issues on some platforms
