@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import static javafx.application.Application.launch;
+import uk.ac.rgu.cm2100.Home;
+import uk.ac.rgu.cm2100.devices.Light;
 import uk.ac.rgu.cm2100.gui.mvc.Controller;
 import uk.ac.rgu.cm2100.gui.mvc.Model;
 
@@ -21,7 +23,14 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         
-        scene = new Scene(loadFXML("primary", null), 640, 480);
+        var home = new Home();
+        var light = new Light("Living room");
+        home.addDevice(light);
+        
+        home.addCommand("Turn on light", light::switchOn, light);
+        
+        
+        scene = new Scene(loadFXML("homescreen", home), 640, 480);
         scene.getStylesheets().add("styles/default.css"); //adds the default stylesheet to overcome character encoding issues on some platforms
         
         stage.setScene(scene);
