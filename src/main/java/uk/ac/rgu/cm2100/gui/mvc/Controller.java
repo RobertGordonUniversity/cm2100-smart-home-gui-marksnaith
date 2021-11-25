@@ -15,7 +15,7 @@ public abstract class Controller<T extends Model> {
     
     public abstract void setModel(T model);
     
-    public Model getModel(){
+    public T getModel(){
         return this.model;
     }
     

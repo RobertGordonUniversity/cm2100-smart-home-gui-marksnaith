@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import uk.ac.rgu.cm2100.commands.Command;
+import uk.ac.rgu.cm2100.commands.Routine;
 import uk.ac.rgu.cm2100.devices.Device;
 import uk.ac.rgu.cm2100.devices.Device.DeviceComparator;
 import uk.ac.rgu.cm2100.gui.mvc.Model;
@@ -45,6 +46,10 @@ public class Home extends Model implements SensorEventHandler {
     public Set<String> getCommands() {
         return this.commandsMap.keySet();
     }
+    
+    public Command getCommand(String name){
+        return this.commandsMap.get(name);
+    }
 
     public List<Device> getDevices() {
         return this.devices;
@@ -76,6 +81,14 @@ public class Home extends Model implements SensorEventHandler {
             this.devices.add(device);
         }
         this.commandsMap.put(name, command);
+        
+        this.firePropertyChange("commandsMap");
+    }
+    
+    public void addRoutine(String name, Routine routine){
+        this.commandsMap.put(name, routine);
+        
+        this.firePropertyChange("commandsMap");
     }
 
     /**

@@ -6,25 +6,29 @@
 package uk.ac.rgu.cm2100.devices;
 
 import uk.ac.rgu.cm2100.devices.functionality.Switchable;
+import uk.ac.rgu.cm2100.devices.status.SwitchableStatus;
 
 /**
  * Class representing a smart plug in the smart home
+ *
  * @author mark
  */
-public class SmartPlug extends Device implements Switchable{
+public class SmartPlug extends Device implements Switchable {
 
-    public SmartPlug(String name){
+    public SmartPlug(String name) {
         super(name);
     }
 
     @Override
     public void switchOn() {
-        System.out.println("plug on"); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(this.name + " plug on"); //To change body of generated methods, choose Tools | Templates.
+        this.status = SwitchableStatus.ON;
     }
 
     @Override
     public void switchOff() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(this.name + " plug Off"); //To change body of generated methods, choose Tools | Templates.
+        this.status = SwitchableStatus.OFF;
     }
-        
+
 }

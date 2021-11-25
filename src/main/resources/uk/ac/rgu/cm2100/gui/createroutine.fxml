@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.rgu.cm2100.gui.CreateroutineController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="uk.ac.rgu.cm2100.gui.CreateroutineController">
     <stylesheets>
-        <URL value="@/styles/createroutine.css"/>
+        <URL value="@/styles/createroutine.css" />
     </stylesheets>
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ListView fx:id="lstCommands" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="lstRoutine" layoutX="229.0" layoutY="67.0" prefHeight="146.0" prefWidth="200.0" />
+            <TextField fx:id="txtRoutineName" layoutX="229.0" layoutY="22.0" promptText="Routine name" />
+            <Button fx:id="btnAddCommand" layoutX="14.0" layoutY="226.0" mnemonicParsing="false" onAction="#btnAddCommandClicked" text="Add command to routine" />
+            <Button fx:id="btnSaveRoutine" layoutX="229.0" layoutY="226.0" mnemonicParsing="false" onAction="#btnSaveRoutineClicked" text="Save" />
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

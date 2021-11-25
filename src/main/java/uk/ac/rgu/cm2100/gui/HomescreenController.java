@@ -35,7 +35,7 @@ public class HomescreenController extends Controller<Home> implements Initializa
 
     @FXML
     private Label lblStatus;
-    
+
     @FXML
     private HBox boxButtons;
 
@@ -56,27 +56,55 @@ public class HomescreenController extends Controller<Home> implements Initializa
     private void lstDevicesClicked() {
         Device device = (Device) this.lstDevices.getSelectionModel().getSelectedItem();
 
-        this.lblStatus.setText(device.getDeviceStatus().toString());
+        if (device != null) {
+            this.lblStatus.setText(device.getDeviceStatus().toString());
+        }
     }
 
     @Override
     public void setModel(Home model) {
         this.model = model;
 
+        /* Convert the devices from the Model into an ObservableList */
         ObservableList<Device> devices = FXCollections.observableArrayList(model.getDevices());
 
+        /* Set the devices in the devices ListView */
         this.lstDevices.setItems(devices);
 
+        /* Stream the commands from the Model to add buttons to the scene */
         this.model.getCommands().forEach((c) -> {
+            
+            /* Create a new button */
             Button btn = new Button(c);
+            
+            /* Assign an event handler */
             btn.setOnAction((evt) -> this.model.executeCommand(c));
+            
+            /* Add the button to the box of buttons */
             this.boxButtons.getChildren().add(btn);
         });
-        
+
+        /* Register a PropertyChangeSupportListener with the Model */
         this.model.addPropertyChangeSupportListener((evt) -> {
-            if(evt.getPropertyName().equals("devices")){
+            if (evt.getPropertyName().equals("devices")) {
+                
+                /* Add the devices to the list of devices, converting to an observable ArrayList */
                 this.lstDevices.setItems(FXCollections.observableArrayList(model.getDevices()));
+                
+                /* Emulate a mouse click to see the updated status */
                 this.lstDevicesClicked();
+            } else if (evt.getPropertyName().equals("commandsMap")) {
+                
+                /* Clear all the buttons in the box */
+                this.boxButtons.getChildren().clear();
+                
+                /* Add all the buttons to the box, reflecting the updated model
+                        - same method as above */
+                this.model.getCommands().forEach((c) -> {
+                    Button btn = new Button(c);
+                    btn.setOnAction((evt2) -> this.model.executeCommand(c));
+                    this.boxButtons.getChildren().add(btn);
+                });
             }
         });
     }
